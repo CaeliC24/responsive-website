@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NeuroKare | Program Eligibility Questionnaire</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #1c5f56;
+  --secondary: #fcd6c8;
+  --background: #ffffff;
+  --text-dark: #0f2f2b;
+  --text-muted: #5f7f7a;
+  --danger: #c0392b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+header {
+  padding: 40px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+header img {
+  height: 90px;
+}
+
+section {
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+h1, h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+p {
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+
+.question-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.question-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+}
+
+.answer-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 999px;
+  border: 2px solid var(--primary);
+  background: white;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.answer-btn:hover {
+  background: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.answer-btn.selected {
+  background: var(--primary);
+  color: white;
+}
+
+.submit-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 999px;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+.notification {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  display: none;
+}
+
+.notification.success {
+  background: #e6f4f2;
+  color: var(--primary);
+}
+
+.notification.error {
+  background: #fdecea;
+  color: var(--danger);
+}
+
+@media (max-width: 600px) {
+  .button-group {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="assets/neurokare-logo.png" alt="NeuroKare Logo">
+</header>
+
+<section>
+  <div class="container">
+    <h1>NeuroReset Program Eligibility</h1>
+    <p>
+      Please answer the following questions to determine if you are a safe candidate to begin the 12-Week NeuroReset Program with Low Dose Naltrexone (LDN).
+    </p>
+
+    <div class="question-card" data-required="no">
+      <h3>1. Are you currently taking any opioid pain medications (Norco, Percocet, Tramadol, morphine) or using kratom?</h3>
+      <div class="button-group">
+        <button class="answer-btn" data-value="yes">Yes</button>
+        <button class="answer-btn" data-value="no">No</button>
+      </div>
+    </div>
+
+    <div class="question-card" data-required="no">
+      <h3>2. Do you have any upcoming surgeries or procedures that may require prescription pain medication?</h3>
+      <div class="button-group">
+        <button class="answer-btn" data-value="yes">Yes</button>
+        <button class="answer-btn" data-value="no">No</button>
+      </div>
+    </div>
+
+    <div class="question-card" data-required="any">
+      <h3>3. Have you been diagnosed with an autoimmune or chronic inflammatory condition?</h3>
+      <div class="button-group">
+        <button class="answer-btn" data-value="yes">Yes</button>
+        <button class="answer-btn" data-value="no">No</button>
+      </div>
+    </div>
+
+    <div class="question-card" data-required="no">
+      <h3>4. Do you have any history of liver disease or significantly impaired kidney function?</h3>
+      <div class="button-group">
+        <button class="answer-btn" data-value="yes">Yes</button>
+        <button class="answer-btn" data-value="no">No</button>
+      </div>
+    </div>
+
+    <div class="question-card" data-required="yes">
+      <h3>5. Are you willing to commit to a 3-month trial understanding improvements are cumulative?</h3>
+      <div class="button-group">
+        <button class="answer-btn" data-value="yes">Yes</button>
+        <button class="answer-btn" data-value="no">No</button>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="checkEligibility()">Check Eligibility</button>
+
+    <div id="successMessage" class="notification success">
+      You meet the safety criteria. Redirecting you to begin your NeuroReset enrollment...
+    </div>
+
+    <div id="errorMessage" class="notification error">
+      Based on your responses, you may not be an appropriate candidate for this program at this time. Please consult directly with a medical provider for further guidance.
+    </div>
+
+  </div>
+</section>
+
+<script>
+const buttons = document.querySelectorAll('.answer-btn');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const group = this.parentElement;
+    group.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+function checkEligibility() {
+  const questions = document.querySelectorAll('.question-card');
+  let eligible = true;
+  let allAnswered = true;
+
+  questions.forEach(q => {
+    const selected = q.querySelector('.answer-btn.selected');
+    const required = q.dataset.required;
+
+    if (!selected) {
+      allAnswered = false;
+      return;
+    }
+
+    const value = selected.dataset.value;
+
+    if (required !== "any" && value !== required) {
+      eligible = false;
+    }
+  });
+
+  if (!allAnswered) {
+    alert("Please answer all questions before continuing.");
+    return;
+  }
+
+  if (eligible) {
+    document.getElementById("successMessage").style.display = "block";
+    document.getElementById("errorMessage").style.display = "none";
+    setTimeout(() => {
+      window.location.href = "https://square.link/u/G59cr5Us";
+    }, 2000);
+  } else {
+    document.getElementById("errorMessage").style.display = "block";
+    document.getElementById("successMessage").style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
