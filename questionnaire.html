@@ -1,3 +1,9 @@
+
+</script>
+
+</body>
+</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +43,7 @@ header img {
 }
 
 section {
-  padding: 80px 20px;
+  padding: 60px 20px;
 }
 
 .container {
@@ -104,14 +110,14 @@ p {
 .submit-btn {
   margin-top: 30px;
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   border-radius: 999px;
   background-color: var(--primary);
   color: white;
   font-weight: 600;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
 }
 
@@ -135,6 +141,29 @@ p {
 .notification.error {
   background: #fdecea;
   color: var(--danger);
+}
+
+/* Privacy Footer Styles */
+footer {
+  background: #f9f9f9;
+  padding: 60px 20px;
+  margin-top: 80px;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.npp-box {
+  max-width: 800px;
+  margin: auto;
+  color: var(--text-muted);
+}
+
+.npp-header {
+  font-weight: 700;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  display: block;
 }
 
 @media (max-width: 600px) {
@@ -211,6 +240,17 @@ p {
   </div>
 </section>
 
+<footer>
+  <div class="npp-box">
+    <span class="npp-header">HIPAA Notice of Privacy Practices</span>
+    <p><strong>THIS NOTICE DESCRIBES HOW MEDICAL INFORMATION ABOUT YOU MAY BE USED AND DISCLOSED AND HOW YOU CAN GET ACCESS TO THIS INFORMATION. PLEASE REVIEW IT CAREFULLY.</strong></p>
+    <p>NeuroKare is committed to protecting your health information. We use the information you provide in this questionnaire solely to determine program eligibility. This data is transmitted via encrypted channels and is not stored on this website's servers.</p>
+    <p><strong>Your Rights:</strong> You have the right to inspect your medical records, request corrections, and receive an accounting of disclosures. Information disclosed pursuant to this notice may be subject to redisclosure by the recipient and may no longer be protected by the Privacy Rule.</p>
+    <p><strong>Substance Use Records:</strong> If we maintain records protected by 42 CFR Part 2, we will not use or disclose such records in legal proceedings against you without your written consent or a specific court order.</p>
+    <p>Effective Date: February 18, 2026. For questions, contact: info@neurokarereset.com</p>
+  </div>
+</footer>
+
 <script>
 const buttons = document.querySelectorAll('.answer-btn');
 
@@ -251,8 +291,11 @@ function checkEligibility() {
   if (eligible) {
     document.getElementById("successMessage").style.display = "block";
     document.getElementById("errorMessage").style.display = "none";
+    
+    // HIPAA Protection: window.location.replace prevents the user from 
+    // going 'back' to see their medical answers in the browser history.
     setTimeout(() => {
-      window.location.href = "https://square.link/u/G59cr5Us";
+      window.location.replace("https://square.link/u/G59cr5Us");
     }, 2000);
   } else {
     document.getElementById("errorMessage").style.display = "block";
