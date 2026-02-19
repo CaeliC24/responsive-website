@@ -32,10 +32,21 @@ header {
   border-bottom: 1px solid #eee;
 }
 
+/* Logo – original size, no distortion */
 header img {
-  height: 120px;
+  height: 120px;   /* keeps original size */
+  width: auto;     /* prevents squishing */
   max-width: 100%;
+  object-fit: contain;
 }
+
+/* Slightly smaller on mobile */
+@media (max-width: 768px) {
+  header img {
+    height: 90px;
+  }
+}
+
 
 section { padding: 100px 20px; }
 
@@ -307,7 +318,7 @@ footer {
   <div class="container">
     <h2>Begin the 12-Week NeuroReset Program</h2>
     <p>Designed for individuals ready to address chronic pain at its biological root.</p>
-    <a href="#" class="btn">Schedule Your Consultation</a>
+    <a href="questionnaire.html" class="btn">Schedule Your Consultation</a>
   </div>
 </section>
 
